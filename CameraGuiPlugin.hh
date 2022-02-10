@@ -1,6 +1,7 @@
 #ifndef GZ_GUI_CAMERA_PLUGIN_HH
 #define GZ_GUI_CAMERA_PLUGIN_HH
 
+#include <QtWidgets/qcombobox.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 
@@ -27,7 +28,7 @@ namespace gazebo
 		public:	virtual ~CameraGuiPlugin();
       		
 		// Callback triggered when Button is Pressed
-		protected slots: void OnButton();
+		protected slots: void OnButton(int);
 
 		// Node used to establish connection with gzserver
 		private: transport::NodePtr node;
@@ -36,6 +37,12 @@ namespace gazebo
 		private: transport::SubscriberPtr cameraSub;
 
 		private: void camera_callback(ConstImageStampedPtr& ) ;
+
+		private: std::list<std::string> camera_topics();
+		
+		private: std::list<std::string> image_topics;
+		
+		private: QComboBox *cmb;
 	};	
 }
 #endif
